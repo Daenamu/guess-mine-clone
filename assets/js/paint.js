@@ -52,6 +52,7 @@ function onMouseMove(event) {
 
 function handleColorClick(event) {
   const color = event.target.style.backgroundColor;
+  console.log(color);
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
   getSocket().emit(window.events.changeColor, { color });
@@ -80,6 +81,12 @@ function handleCM(event) {
 }
 
 if (canvas) {
+  getSocket().emit(window.events.changeColor, { color: INITIAL_COLOR });
+  getSocket().emit(window.events.changeMode, { filling });
+  if (filling) {
+    console.log(filling);
+    getSocket().emit(window.events.canvasFill, {});
+  }
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
