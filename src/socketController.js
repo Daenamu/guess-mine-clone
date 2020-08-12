@@ -4,6 +4,7 @@ const socketController = (socket) => {
   // set nickname
 
   socket.on(events.setNickname, ({ nickname }) => {
+    socket.broadcast.emit(events.newUser, { nickname });
     socket.nickname = nickname;
   });
 };
