@@ -1,3 +1,5 @@
+import { handleMessageNotif } from "./chat";
+
 // socket server
 // eslint-disable-next-line no-undef
 const socket = io("/");
@@ -14,10 +16,5 @@ function setNickname(nickname) {
 }
 
 // listening functions
-
-function handleMessageNotif(data) {
-  const { message, nickname } = data;
-  console.log(`${nickname}: ${message}`);
-}
 
 socket.on("messageNotif", handleMessageNotif);
