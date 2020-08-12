@@ -1,7 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";require("./login");
+"use strict";require("./sockets"),require("./login"),require("./notifications");
 
-},{"./login":2}],2:[function(require,module,exports){
-"use strict";const body=document.querySelector("body"),loginForm=document.getElementById("jsLogin"),NICKNAME="nickname",LOGGED_OUT="loggedOut",LOGGED_IN="loggedIn",nickname=localStorage.getItem(NICKNAME),logIn=e=>{window.socket=io("/"),window.socket.emit(window.events.setNickname,{nickname:e})};null===nickname?body.className=LOGGED_OUT:(body.className=LOGGED_IN,logIn(nickname));const handleFormSubmit=e=>{e.preventDefault();const o=loginForm.querySelector("input"),{value:n}=o;o.value="",localStorage.setItem(NICKNAME,n),body.className=LOGGED_IN,logIn(n)};loginForm&&loginForm.addEventListener("submit",handleFormSubmit);
+},{"./login":2,"./notifications":3,"./sockets":4}],2:[function(require,module,exports){
+"use strict";const{initSockets:initSockets}=require("./sockets"),body=document.querySelector("body"),loginForm=document.getElementById("jsLogin"),NICKNAME="nickname",LOGGED_OUT="loggedOut",LOGGED_IN="loggedIn",nickname=localStorage.getItem(NICKNAME),logIn=e=>{const n=io("/");n.emit(window.events.setNickname,{nickname:e}),initSockets(n)};null===nickname?body.className=LOGGED_OUT:(body.className=LOGGED_IN,logIn(nickname));const handleFormSubmit=e=>{e.preventDefault();const n=loginForm.querySelector("input"),{value:o}=n;n.value="",localStorage.setItem(NICKNAME,o),body.className=LOGGED_IN,logIn(o)};loginForm&&loginForm.addEventListener("submit",handleFormSubmit);
 
-},{}]},{},[1])
+},{"./sockets":4}],3:[function(require,module,exports){
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.handleDisconnected=exports.handleNewUser=void 0;const notifications=document.getElementById("jsNotifications"),fireNotification=(e,n)=>{const t=document.createElement("div");t.innerText=e,t.style.backgroundColor=n,t.className="notification",notifications.appendChild(t)},handleNewUser=({nickname:e})=>{fireNotification(`${e} just joined!`,"rgb(0, 122, 255)")};exports.handleNewUser=handleNewUser;const handleDisconnected=({nickname:e})=>{fireNotification(`${e} just left!`,"rgb(255, 149, 0)")};exports.handleDisconnected=handleDisconnected;
+
+},{}],4:[function(require,module,exports){
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.initSockets=exports.updateSocket=exports.getSocket=void 0;var _notifications=require("./notifications");let socket=null;const getSocket=()=>socket;exports.getSocket=getSocket;const updateSocket=t=>socket=t;exports.updateSocket=updateSocket;const initSockets=t=>{const{events:e}=window;updateSocket(t),t.on(e.newUser,_notifications.handleNewUser),t.on(e.disconnected,_notifications.handleDisconnected)};exports.initSockets=initSockets;
+
+},{"./notifications":3}]},{},[1])
