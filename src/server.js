@@ -3,6 +3,7 @@ import express from "express";
 import socketIO from "socket.io";
 import logger from "morgan";
 import socketController from "./socketController";
+import events from "./events";
 
 // variables
 
@@ -18,7 +19,9 @@ app.use(logger("dev"));
 
 // app routing
 
-app.get("/", (req, res) => res.render("home"));
+app.get("/", (req, res) =>
+  res.render("home", { events: JSON.stringify(events) })
+);
 
 // server init
 

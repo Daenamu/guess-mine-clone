@@ -2,6 +2,6 @@
 "use strict";require("./login");
 
 },{"./login":2}],2:[function(require,module,exports){
-"use strict";const body=document.querySelector("body"),loginForm=document.getElementById("jsLogin"),NICKNAME="nickname",LOGGED_OUT="loggedOut",LOGGED_IN="loggedIn",nickname=localStorage.getItem(NICKNAME),logIn=e=>{io("/").emit("setNickname",{nickname:e})};null===nickname?body.className=LOGGED_OUT:(body.className=LOGGED_IN,logIn(nickname));const handleFormSubmit=e=>{e.preventDefault();const n=loginForm.querySelector("input"),{value:o}=n;n.value="",localStorage.setItem(NICKNAME,o),body.className=LOGGED_IN,logIn(o)};loginForm&&loginForm.addEventListener("submit",handleFormSubmit);
+"use strict";const body=document.querySelector("body"),loginForm=document.getElementById("jsLogin"),NICKNAME="nickname",LOGGED_OUT="loggedOut",LOGGED_IN="loggedIn",nickname=localStorage.getItem(NICKNAME),logIn=e=>{window.socket=io("/"),window.socket.emit(window.events.setNickname,{nickname:e})};null===nickname?body.className=LOGGED_OUT:(body.className=LOGGED_IN,logIn(nickname));const handleFormSubmit=e=>{e.preventDefault();const o=loginForm.querySelector("input"),{value:n}=o;o.value="",localStorage.setItem(NICKNAME,n),body.className=LOGGED_IN,logIn(n)};loginForm&&loginForm.addEventListener("submit",handleFormSubmit);
 
 },{}]},{},[1])
