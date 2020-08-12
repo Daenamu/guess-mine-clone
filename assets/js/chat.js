@@ -1,8 +1,9 @@
 import { getSocket } from "./socket";
 
-// chat util
-
 const messages = document.getElementById("jsMessages");
+const sendMsg = document.getElementById("jsSendMsg");
+
+// chat util
 
 const appendMsg = (text, nickname) => {
   const li = document.createElement("li");
@@ -16,8 +17,6 @@ const appendMsg = (text, nickname) => {
 
 // send chat
 
-const sendMsg = document.getElementById("jsSendMsg");
-
 const handleSendMsg = (event) => {
   event.preventDefault();
   const input = sendMsg.querySelector("input");
@@ -30,9 +29,3 @@ const handleSendMsg = (event) => {
 if (sendMsg) {
   sendMsg.addEventListener("submit", handleSendMsg);
 }
-
-// receive chat
-
-export const handleNewMessage = ({ message, nickname }) => {
-  appendMsg(message, nickname);
-};

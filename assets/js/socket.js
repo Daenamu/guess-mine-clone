@@ -1,5 +1,5 @@
 import { handleNewUser, handleDisconnected } from "./notifications";
-import { handleNewMessage } from "./chat";
+import { handleNewMessage } from "./chatReceive";
 
 // socket util
 
