@@ -5,7 +5,6 @@ import minifyCSS from "gulp-csso";
 import del from "del";
 import browserify from "gulp-browserify";
 import babelify from "babelify";
-import uglifyify from "uglifyify";
 
 const paths = {
   styles: {
@@ -42,7 +41,6 @@ const js = () => {
           babelify.configure({
             presets: ["@babel/preset-env"],
           }),
-          [uglifyify, { global: true }],
         ],
       })
     )

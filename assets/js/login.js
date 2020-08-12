@@ -1,4 +1,4 @@
-const { initSockets } = require("./sockets");
+const { initSockets } = require("./socket");
 
 const body = document.querySelector("body");
 const loginForm = document.getElementById("jsLogin");
