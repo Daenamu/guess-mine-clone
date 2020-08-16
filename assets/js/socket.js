@@ -7,6 +7,7 @@ import {
   handleChangedMode,
   handleCanvasFill,
 } from "./paintReceive";
+import { handlePlayerUpdate } from "./players";
 
 // socket util
 
@@ -29,4 +30,5 @@ export const initSockets = (aSocket) => {
   aSocket.on(events.changedColor, handleChangedColor);
   aSocket.on(events.changedMode, handleChangedMode);
   aSocket.on(events.canvasFilled, handleCanvasFill);
+  socket.on(events.playerUpdate, handlePlayerUpdate);
 };

@@ -15,6 +15,7 @@ const events = {
   changedMode: "changedMode",
   canvasFill: "canvasFill",
   canvasFilled: "canvasFilled",
+  playerUpdate: "playerUpdate",
 };
 
 export default events;

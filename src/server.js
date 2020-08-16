@@ -33,4 +33,4 @@ const server = app.listen(PORT, handleListening);
 // socket init
 
 const io = socketIO.listen(server);
-io.on("connection", (socket) => socketController(socket));
+io.on("connection", (socket) => socketController(socket, io));
