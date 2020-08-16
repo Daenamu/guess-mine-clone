@@ -7,7 +7,13 @@ import {
   handleChangedMode,
   handleCanvasFill,
 } from "./paintReceive";
-import { handlePlayerUpdate } from "./players";
+import {
+  handlePlayerUpdate,
+  handleGameStarted,
+  handleLeaderNotif,
+  handleGameEnded,
+  handleGameStarting,
+} from "./players";
 
 // socket util
 
@@ -31,4 +37,8 @@ export const initSockets = (aSocket) => {
   aSocket.on(events.changedMode, handleChangedMode);
   aSocket.on(events.canvasFilled, handleCanvasFill);
   socket.on(events.playerUpdate, handlePlayerUpdate);
+  socket.on(events.gameStarted, handleGameStarted);
+  socket.on(events.leaderNotif, handleLeaderNotif);
+  socket.on(events.gameEnded, handleGameEnded);
+  socket.on(events.gameStarting, handleGameStarting);
 };

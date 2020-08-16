@@ -16,6 +16,10 @@ const events = {
   canvasFill: "canvasFill",
   canvasFilled: "canvasFilled",
   playerUpdate: "playerUpdate",
+  gameStarted: "gameStarted",
+  leaderNotif: "leaderNotif",
+  gameEnded: "gameEnded",
+  gameStarting: "gameStarting",
 };
 
 export default events;

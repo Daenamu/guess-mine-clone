@@ -1,6 +1,7 @@
 import { getSocket } from "./socket";
 
 const canvas = document.getElementById("jsCanvas");
+const controls = document.getElementById("jsControls");
 const ctx = canvas.getContext("2d");
 const colors = document.getElementsByClassName("jsColor");
 const mode = document.getElementById("jsMode");
@@ -80,6 +81,26 @@ function handleCM(event) {
   event.preventDefault();
 }
 
+Array.from(colors).forEach((color) =>
+  color.addEventListener("click", handleColorClick)
+);
+
+export const disableCanvas = () => {
+  canvas.removeEventListener("mousemove", onMouseMove);
+  canvas.removeEventListener("mousedown", startPainting);
+  canvas.removeEventListener("mouseup", stopPainting);
+  canvas.removeEventListener("mouseleave", stopPainting);
+  canvas.removeEventListener("click", handleCanvasClick);
+};
+
+export const enableCanvas = () => {
+  canvas.addEventListener("mousemove", onMouseMove);
+  canvas.addEventListener("mousedown", startPainting);
+  canvas.addEventListener("mouseup", stopPainting);
+  canvas.addEventListener("mouseleave", stopPainting);
+  canvas.addEventListener("click", handleCanvasClick);
+};
+
 if (canvas) {
   getSocket().emit(window.events.changeColor, { color: INITIAL_COLOR });
   getSocket().emit(window.events.changeMode, { filling });
@@ -87,17 +108,19 @@ if (canvas) {
     console.log(filling);
     getSocket().emit(window.events.canvasFill, {});
   }
-  canvas.addEventListener("mousemove", onMouseMove);
-  canvas.addEventListener("mousedown", startPainting);
-  canvas.addEventListener("mouseup", stopPainting);
-  canvas.addEventListener("mouseleave", stopPainting);
-  canvas.addEventListener("click", handleCanvasClick);
   canvas.addEventListener("contextmenu", handleCM);
+  hideControls();
 }
 
-Array.from(colors).forEach((color) =>
-  color.addEventListener("click", handleColorClick)
-);
+export const hideControls = () => (controls.style.display = "none");
+
+export const showControls = () => (controls.style.display = "flex");
+
+export const resetCanvas = () => {
+  ctx.strokeStyle = "#fff";
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+};
 
 if (mode) {
   mode.addEventListener("click", handleModeClick);
