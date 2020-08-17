@@ -27,6 +27,7 @@ const socketController = (socket, io) => {
           timeout = setTimeout(endGame, 30000);
         }, 5000);
       }
+    }
   };
   const endGame = () => {
     inProgress = false;
